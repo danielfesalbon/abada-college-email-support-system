@@ -1,2 +1,2 @@
 # Abada College Email Support System
- -System that will send emails to multiple students. Email such as announcements or updates.
+ System that will send emails to multiple students. Email such as announcements or updates. Compliance for thesis subject.
