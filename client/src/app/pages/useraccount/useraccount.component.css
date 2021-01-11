@@ -1,0 +1,71 @@
+:host ::ng-deep .p-datatable-responsive-demo .p-datatable-tbody>tr>td .p-column-title {
+    display: none;
+}
+
+@media screen and (max-width: 40rem) {
+     :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-thead>tr>th,
+     :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tfoot>tr>td {
+        display: none !important;
+    }
+     :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tbody>tr>td {
+        text-align: left;
+        display: block;
+        width: 100%;
+        float: left;
+        clear: left;
+        border: 0 none;
+    }
+     :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tbody>tr>td .p-column-title {
+        padding: 0.4rem;
+        min-width: 30%;
+        display: inline-block;
+        margin: -0.4em 1em -0.4em -0.4rem;
+        font-weight: bold;
+    }
+     :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tbody>tr>td:last-child {
+        border-bottom: 1px solid var(--surface-d);
+    }
+}
+
+:host ::ng-deep .p-datatable-responsive-demo .p-datatable-tbody>tr>td.username-col {
+    text-align: left;
+    width: 30%;
+}
+
+:host ::ng-deep .p-datatable-responsive-demo .p-datatable-thead>tr>th.username-col {
+    text-align: left;
+    width: 30%;
+}
+
+:host ::ng-deep .p-datatable-responsive-demo .p-datatable-tbody>tr>td {
+    padding: 0.2em;
+    padding-left: 1em;
+}
+
+:host ::ng-deep .p-datatable-responsive-demo .p-datatable-tbody>tr>td.action-col {
+    text-align: center;
+    width: 20%;
+}
+
+:host ::ng-deep .p-datatable-responsive-demo .p-datatable-thead>tr>th.action-col {
+    text-align: center;
+    width: 20%;
+}
+
+:host ::ng-deep .p-datatable-responsive-demo .p-datatable-tbody>tr>td.stat-col {
+    text-align: center;
+    width: 10%;
+}
+
+:host ::ng-deep .p-datatable-responsive-demo .p-datatable-thead>tr>th.stat-col {
+    text-align: center;
+    width: 10%;
+}
+
+.pad-top {
+    padding-top: 0.5em;
+}
+
+.act-button {
+    margin-left: 5px;
+}

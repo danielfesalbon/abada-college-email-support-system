@@ -1,0 +1,64 @@
+.navbar {
+    background-color: whitesmoke;
+    height: 10vh;
+    padding-top: 12px;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 998;
+}
+
+.nav-shadow {
+    box-shadow: 0 8px 4px -4px rgba(0, 0, 0, .2);
+}
+
+.navbar button {
+    float: right;
+}
+
+.login-page {
+    height: 100vh;
+    padding-top: 20vh;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.login-form {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(226, 226, 226);
+    background-color: whitesmoke;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+label {
+    text-align: left;
+    float: left;
+}
+
+.register-form {
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.dot {
+    opacity: 0%;
+}
+
+.logo {
+    height: 200px;
+    width: 200px;
+    margin: auto;
+    background-image: url("/assets/LOGO.png");
+    background-size: contain;
+}
+
+.system-name {
+    font-weight: bolder;
+    padding-top: 0.5em;
+    padding-left: 1em;
+}

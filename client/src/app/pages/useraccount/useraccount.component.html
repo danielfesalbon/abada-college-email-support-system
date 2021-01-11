@@ -1,0 +1,71 @@
+<p-table [value]="users" styleClass="p-datatable-responsive-demo">
+    <ng-template pTemplate="header">
+        <tr>
+            <th class="username-col">USERNAME</th>
+            <th>NAME</th>
+            <th class="stat-col">DISABLED</th>
+            <th class="action-col">ACTION</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-data>
+        <tr>
+            <td class="username-col"><span class="p-column-title">USERNAME</span>{{data.username}}</td>
+            <td><span class="p-column-title">NAME</span>{{data.name}}</td>
+            <td class="stat-col"><span class="p-column-title">DISABLED</span>{{ getstatus(data.disabled) }}</td>
+            <td class="action-col"><span class="p-column-title">ACTION</span>
+                <button pButton pRipple icon="pi pi-pencil" (click)="viewuser(data)" class="p-button-raised p-button-primary"></button>
+                <button *ngIf="data.disabled" pButton pRipple icon="pi pi-unlock" class="p-button-raised p-button-warning act-button" (click)="disableaccount(data)"></button>
+                <button *ngIf="data.disabled == null || !data.disabled" pButton pRipple icon="pi pi-lock" class="p-button-raised p-button-warning act-button" (click)="disableaccount(data)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-raised p-button-danger act-button" (click)="deleteuser(data)"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+
+
+
+<p-dialog header="User account" [(visible)]="usermodal" [modal]="true" [style]="{width: '35vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false" [closable]="false">
+
+    <div class="p-grid p-fluid">
+        <div class="p-col-12 p-md-6 p-lg-12">
+            <div class="p-grid">
+                <div class="p-col-12 p-md-6 p-lg-12">
+                    <label for="userid">User ID</label>
+                    <div id="userid">{{user.userid}}</div>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-12">
+                    <label for="nameuser">Name</label>
+                    <div id="nameuser">{{user.name}}</div>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-12">
+                    <label for="username">Username</label>
+                    <div id="username">{{user.username}}</div>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-12">
+                    <label for="username">Disabled</label>
+                    <div id="username">{{ getstatus(user.disabled) }}</div>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-12">
+                    <label for="contact">Contact</label>
+                    <input id="contact" type="text" pInputText [(ngModel)]="user.contact">
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-12">
+                    <label for="address">Address</label>
+                    <input id="address" type="text" pInputText [(ngModel)]="user.address">
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-12">
+                    <label for="bday">Birthday</label>
+                    <p-calendar id="bday" inputId="bday" [(ngModel)]="user.bday" [baseZIndex]="999"></p-calendar>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <ng-template pTemplate="footer">
+        <button icon="pi pi-check" (click)="saveuser()" pButton pRipple type="button" label="Save" class="p-button-success"></button>
+        <p-button icon="pi pi-times" pRipple (click)="usermodal=false" label="Close" styleClass="p-button-text">
+        </p-button>
+    </ng-template>
+</p-dialog>

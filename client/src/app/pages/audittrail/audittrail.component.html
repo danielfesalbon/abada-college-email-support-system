@@ -1,0 +1,19 @@
+<p-table [value]="list" styleClass="p-datatable-responsive-demo">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>USER</th>
+            <th>ACTIVITY</th>
+            <th>DATE</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-data>
+        <tr>
+            <td><span class="p-column-title">USER</span>{{data.username}}</td>
+            <td><span class="p-column-title">ACTIVITY</span>{{data.eventdesc}}</td>
+            <td><span class="p-column-title">DATE</span>{{data.eventdate | date: 'short'}}</td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <p-paginator [rows]="row" [totalRecords]="total" [rowsPerPageOptions]="options" (onPageChange)="paginate($event)"></p-paginator>
+    </ng-template>
+</p-table>

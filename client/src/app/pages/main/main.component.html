@@ -1,0 +1,67 @@
+<div class="layout">
+    <div id="menubar">
+        <ul class="sticky shadow">
+            <li><a routerLink="emails">Send Emails</a></li>
+            <li><a routerLink="settings/configuration">Settings</a></li>
+            <li style="float:right" class="btn"> <button pButton pRipple label="Log out" icon="pi pi-sign-out" class="p-mr-2 p-mb-2" (click)="onlogout()"></button>
+            </li>
+            <li style="float:right; margin-right: 5px;" class="btn">
+                <button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded" (click)=" showprofile()"></button>
+            </li>
+        </ul>
+    </div>
+    <div class="header">
+
+    </div>
+
+    <div class="page-route">
+        <router-outlet></router-outlet>
+    </div>
+
+    <div class="page-footer box box-stretched green">
+        2021 © Abada College
+    </div>
+</div>
+
+
+<p-confirmDialog [baseZIndex]="10000" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+
+
+<p-dialog header="Hello!" [(visible)]="usermodal" [modal]="true" [position]="position" [style]="{width: '35vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false" [closable]="false">
+
+    <div class="p-grid p-fluid">
+        <div class="p-col-12 p-md-6 p-lg-12">
+            <div class="p-grid">
+                <div class="p-col-12 p-md-6 p-lg-12">
+                    <i class="pi pi-user icon-center" style="font-size: 5rem"></i>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-12">
+                    <label for="nameuser">Name</label>
+                    <div id="nameuser">{{user.name}}</div>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-12">
+                    <label for="username">Username</label>
+                    <div id="username">{{user.username}}</div>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-12">
+                    <label for="contact">Contact</label>
+                    <div id="contact">{{user.contact}}</div>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-12">
+                    <label for="address">Address</label>
+                    <div id="address">{{user.address}}</div>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-12">
+                    <label for="bday">Birthday</label>
+                    <div id="bday">{{user.bday | date: 'longDate'}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-times" pRipple (click)="usermodal=false" label="Close" styleClass="p-button-text">
+        </p-button>
+    </ng-template>
+</p-dialog>
