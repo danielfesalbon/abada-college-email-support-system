@@ -1,5 +1,6 @@
 <div id="stloginnav" class="navbar nav-shadow sticky">
     <label class="system-name">ABADA COLLEGE CUSTOM EMAIL SUPPORT SYSTEM</label>
+    <button pButton pRipple label="Recover" class="p-button-outlined p-mr-2 p-mb-2" (click)="forgotpassword()"></button>
     <button pButton pRipple label="Register" class="p-button-outlined p-mr-2 p-mb-2" (click)="onreg()"></button>
     <button pButton pRipple label="Log in" class="p-mr-2 p-mb-2" (click)="onsign()"></button>
 </div>
@@ -59,6 +60,63 @@
     </div>
 </div>
 
+<div class="login-page" *ngIf="forgpass">
+    <div class="p-grid p-fluid">
+        <div class="p-col-12 p-md-6 p-lg-3">
+        </div>
+        <div class="p-col-12 p-md-6 p-lg-6">
+            <div class="register-form">
+                <div class="p-grid">
+                    <div class="p-col-12 p-md-6 p-lg-12">
+                        <label for="username">Username</label>
+                        <input id="username" type="text" pInputText [(ngModel)]="user.username">
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-12 p-md-6 p-lg-6">
+                        <label>Birthday</label>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-12 p-md-6 p-lg-12">
+                        <p-calendar inputId="basic" [(ngModel)]="user.bday"></p-calendar>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-12 p-md-6 p-lg-8">
+                    </div>
+                    <div class="p-col-12 p-md-6 p-lg-4">
+                        <label for="resetButton" class="dot">.</label>
+                        <button id="resetButton" pButton pRipple type="button" label="Validate" class="p-button-raised p-button-info" (click)="validateresetpass()"></button>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-12 p-md-6 p-lg-12">
+                        <label for="password1">New Password</label>
+                        <input [disabled]="!resetpass" id="password1" type="password" pPassword [(ngModel)]="user.password">
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-12 p-md-6 p-lg-12">
+                        <label for="password2">Confirm New Password</label>
+                        <input [disabled]="!resetpass" id="password2" type="password" pPassword [(ngModel)]="confpassword">
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-12 p-md-6 p-lg-8">
+                    </div>
+                    <div class="p-col-12 p-md-6 p-lg-4">
+                        <label for="resetButton" class="dot">.</label>
+                        <button [disabled]="!resetpass || confpassword != user.password" id="resetButton" pButton pRipple type="button" label="Reset" class="p-button-raised p-button-info" (click)="resetpassword()"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-col-12 p-md-6 p-lg-3">
+        </div>
+    </div>
+</div>
+
 
 <div class="login-page" *ngIf="tosignin">
     <div class="p-grid p-fluid">
@@ -77,12 +135,41 @@
                 </div>
                 <div class="p-field">
                     <button pButton pRipple type="button" label="Sign in" class="p-button-raised p-button-success" (click)="usersignin()"></button>
-                    <label>Forgot Password?</label>
                 </div>
             </div>
             <div class="p-col-12 p-md-6 p-lg-4">
             </div>
         </div>
     </div>
+</div>
 
-    <p-confirmDialog key="regconf" [baseZIndex]="10000" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+<p-confirmDialog key="regconf" [baseZIndex]="10000" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+
+
+
+<!--<p-dialog header="Validate User" [(visible)]="forgpass" [modal]="true" [style]="{width: '35vw', height: '800px'}" [baseZIndex]="998" [draggable]="false" [resizable]="false" [closable]="false">
+
+    <div class="p-grid p-fluid">
+        <div class="p-col-12 p-md-6 p-lg-12">
+            <div class="p-grid">
+                <div class="p-col-12 p-md-6 p-lg-12">
+                    <label for="faddress">Username</label>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-12">
+                    <input id="faddress" type="text" pInputText [(ngModel)]="user.username">
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-12">
+                    <label for="fbday">Birthday</label>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-12">
+                    <p-calendar id="fbday" inputId="fbday" [(ngModel)]="user.bday" [baseZIndex]="999"></p-calendar>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <button icon="pi pi-check" pButton pRipple type="button" (click)="validateresetpass()" label="Submit" class="p-button-success"></button>
+        <p-button icon="pi pi-times" pRipple (click)="forgpass=false" label="Close" styleClass="p-button-text">
+        </p-button>
+    </ng-template>
+</p-dialog>-->

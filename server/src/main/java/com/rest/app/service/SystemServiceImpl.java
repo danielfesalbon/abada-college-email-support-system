@@ -3,6 +3,7 @@
  */
 package com.rest.app.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,7 +58,7 @@ public class SystemServiceImpl implements SystemService {
 	public List<Audittrail> getAudittrail(Integer row, Integer page) {
 		// TODO Auto-generated method stub
 		try {
-			Pageable pagination = PageRequest.of(page, row, Sort.by("id"));
+			Pageable pagination = PageRequest.of(page, row, Sort.by("id").descending());
 			return auditRepository.findAll(pagination).getContent();
 
 		} catch (Exception e) {
@@ -104,13 +105,14 @@ public class SystemServiceImpl implements SystemService {
 		// TODO Auto-generated method stub
 		Map<String, Object> response = new HashMap<String, Object>();
 		try {
+			SimpleDateFormat dateformatter = new SimpleDateFormat("yyyy-MM-dd");
 			response.put("flag", "failed");
-			response.put("event", "User Account Reset Password validation failed");
+			response.put("event", "User Account Recovery validation failed");
 			if (user.getUsername() != null && user.getBday() != null) {
 				Useraccount u = userRepository.findByUsername(user.getUsername());
-				if (u.getBday().equals(user.getBday())) {
+				if (dateformatter.format(u.getBday()).equals(dateformatter.format(user.getBday()))) {
 					response.put("flag", "success");
-					response.put("event", "User Account Reset Password validated");
+					response.put("event", "User Account Recovery validated");
 				}
 			}
 
@@ -129,7 +131,7 @@ public class SystemServiceImpl implements SystemService {
 		Map<String, Object> response = new HashMap<String, Object>();
 		try {
 			response.put("flag", "failed");
-			response.put("event", "User Account Reset Password Reset");
+			response.put("event", "User Account Reset");
 			Useraccount u = userRepository.findByUsername(user.getUsername());
 			u.setPassword(passwordEncoder.encode(user.getPassword()));
 			userRepository.save(u);

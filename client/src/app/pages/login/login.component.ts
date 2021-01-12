@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.user = {};
     this.onsign();
     this.credentials = {};
   }
@@ -29,9 +30,13 @@ export class LoginComponent implements OnInit {
   credentials: any;
   user: any;
   confpassword: any;
+  forgpass: boolean;
+  resetpass: boolean;
 
 
   onreg() {
+    this.resetpass = false;
+    this.forgpass = false;
     this.toregister = true;
     this.tosignin = false;
     this.user = {};
@@ -41,6 +46,7 @@ export class LoginComponent implements OnInit {
   onsign() {
     this.toregister = false;
     this.tosignin = true;
+    this.forgpass = false;
   }
 
 
@@ -70,15 +76,44 @@ export class LoginComponent implements OnInit {
   }
 
   forgotpassword() {
-
+    this.user = {};
+    this.forgpass = true;
+    this.toregister = false;
+    this.tosignin = false;
+    this.resetpass = false;
+    this.confpassword = '';
   }
 
   validateresetpass() {
-
+    this.service.validateresetpassword(this.user).subscribe(res => {
+      if (res.flag == "success") {
+        this.resetpass = true;
+        this.messageService.add({ key: 'bc', severity: 'success', summary: 'Valid', detail: res.event });
+      } else {
+        this.messageService.add({ key: 'bc', severity: 'error', summary: 'Failed', detail: 'User validation failed.' });
+      }
+    }, err => {
+      this.messageService.add({ key: 'bc', severity: 'error', summary: 'Failed', detail: 'User validation failed.' });
+    });
   }
 
   resetpassword() {
-
+    this.confirmationService.confirm({
+      key: "regconf",
+      message: 'Reset user password.',
+      accept: () => {
+        this.service.resetpassword(this.user).subscribe(res => {
+          if (res.flag == "success") {
+            this.messageService.add({ key: 'bc', severity: 'success', summary: 'Success', detail: res.event });
+            this. forgotpassword();
+          } else {
+            this.messageService.add({ key: 'bc', severity: 'error', summary: 'Failed', detail: "Reset failed." });
+          }
+        }, err => {
+          this.messageService.add({ key: 'bc', severity: 'error', summary: 'Failed', detail: err.message });
+        });
+      }
+    });
   }
 
 }

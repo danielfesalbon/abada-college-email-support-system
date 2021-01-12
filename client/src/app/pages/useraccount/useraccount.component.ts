@@ -57,7 +57,6 @@ export class UseraccountComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Save user details.',
       accept: () => {
-        console.log(this.user);
         this.service.saveuser(this.user).subscribe(res => {
           if (res.flag == "success") {
             this.getusers();
