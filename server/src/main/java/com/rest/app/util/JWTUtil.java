@@ -25,8 +25,11 @@ public class JWTUtil implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 19549467396169759L;
+	@Value("${jwt.expiration}")
+	private long expiration;
 
-	public static final long JWT_TIMEOUT = 24 * 60 * 60;
+	// public static final long JWT_TIMEOUT = 24 * 60 * 60; 24hrs
+	// public static final long JWT_TIMEOUT = 12 * 60 * 60; // 12hrs hr - min - sec
 
 	@Value("${jwt.secret}")
 	private String secret;
@@ -70,9 +73,8 @@ public class JWTUtil implements Serializable {
 	// Serialization(https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41#section-3.1)
 	// compaction of the JWT to a URL-safe string
 	private String doGenerateToken(Map<String, Object> claims, String subject) {
-
 		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + JWT_TIMEOUT * 1000))
+				.setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
 				.signWith(SignatureAlgorithm.HS512, secret).compact();
 	}
 

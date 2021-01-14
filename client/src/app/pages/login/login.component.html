@@ -1,8 +1,9 @@
-<div id="stloginnav" class="navbar nav-shadow sticky">
+<div id="loginnav" class="navbar nav-shadow sticky">
     <label class="system-name">ABADA COLLEGE CUSTOM EMAIL SUPPORT SYSTEM</label>
     <button pButton pRipple label="Recover" class="p-button-outlined p-mr-2 p-mb-2" (click)="forgotpassword()"></button>
     <button pButton pRipple label="Register" class="p-button-outlined p-mr-2 p-mb-2" (click)="onreg()"></button>
     <button pButton pRipple label="Log in" class="p-mr-2 p-mb-2" (click)="onsign()"></button>
+    <button pButton pRipple type="button" icon="{{themeicon}}" class="p-mr-2 p-mb-2" (click)="switchTheme()" pTooltip="Click to switch to {{mode}}"></button>
 </div>
 
 <div class="login-page" *ngIf="toregister">
@@ -118,7 +119,7 @@
 </div>
 
 
-<div class="login-page" *ngIf="tosignin">
+<div class="login-page" *ngIf="tosignin" id="loginform">
     <div class="p-grid p-fluid">
         <div class="p-col-12 p-md-6 p-lg-4">
         </div>

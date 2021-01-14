@@ -1,20 +1,30 @@
 <div class="layout">
     <div id="menubar">
-        <ul class="sticky shadow">
-            <li><a routerLink="emails">Send Emails</a></li>
-            <li><a routerLink="settings/configuration">Settings</a></li>
+        <ul class="sticky shadow" id="ul-list">
+            <li class="icon-list">
+                <button routerLink="emails" pButton pRipple type="button" icon="pi pi-envelope" class="p-button-rounded" pTooltip="Send Emails"></button>
+            </li>
+            <li class="icon-list">
+                <button routerLink="settings/configuration" pButton pRipple type="button" icon="pi pi-cog" class="p-button-rounded" pTooltip="Settings"></button>
+            </li>
+            <li class="li-list"><a routerLink="emails">Send Emails</a></li>
+            <li class="li-list"><a routerLink="settings/configuration">Settings</a></li>
             <li style="float:right" class="btn"> <button pButton pRipple label="Log out" icon="pi pi-sign-out" class="p-mr-2 p-mb-2" (click)="onlogout()"></button>
             </li>
             <li style="float:right; margin-right: 5px;" class="btn">
-                <button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded" (click)=" showprofile()"></button>
+                <button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded" (click)="showprofile()"></button>
             </li>
+            <li style="float:right; margin-right: 5px;" class="btn">
+                <button pButton pRipple type="button" icon="{{themeicon}}" class="p-button-rounded" (click)="switchTheme()" pTooltip="Click to switch to {{mode}}"></button>
+            </li>
+
         </ul>
     </div>
-    <div class="header">
+    <div id="header" class="header">
 
     </div>
 
-    <div class="page-route">
+    <div class="page-route" id="page">
         <router-outlet></router-outlet>
     </div>
 
@@ -55,12 +65,21 @@
                     <label for="bday">Birthday</label>
                     <div id="bday">{{user.bday | date: 'longDate'}}</div>
                 </div>
+                <div class="p-col-12 p-md-6 p-lg-12">
+                    <label for="password1">New Password</label>
+                    <input id="password1" type="password" pPassword [(ngModel)]="user.password">
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-12">
+                    <label for="password2">Confirm New Password</label>
+                    <input id="password2" type="password" pPassword [(ngModel)]="confpassword">
+                </div>
             </div>
         </div>
     </div>
 
 
     <ng-template pTemplate="footer">
+        <button icon="pi pi-check" (click)="changepassword()" *ngIf="user != undefined && user.password != null && user.password != '' && user.password == confpassword" pButton pRipple type="button" label="Update Password" class="p-button-success"></button>
         <p-button icon="pi pi-times" pRipple (click)="usermodal=false" label="Close" styleClass="p-button-text">
         </p-button>
     </ng-template>

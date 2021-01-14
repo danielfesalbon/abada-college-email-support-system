@@ -63,4 +63,8 @@ export class BackendService {
     return this.http.post<any>(this.servicelink + '/system/reset/password', user);
   }
 
+  changepassword(user) {
+    return this.http.post<any>(this.servicelink + '/user/changepassword', user);
+  }
+
 }

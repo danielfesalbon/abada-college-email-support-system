@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { BackendService } from 'src/app/service/backend.service';
+import { TokenService } from 'src/app/service/token.service';
 
 @Component({
   selector: 'app-audittrail',
@@ -14,7 +15,8 @@ export class AudittrailComponent implements OnInit {
     private service: BackendService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private router: Router
+    private router: Router,
+    private tokenService: TokenService,
   ) { }
 
 
@@ -34,7 +36,7 @@ export class AudittrailComponent implements OnInit {
       this.options = res.rowoptions;
       this.getactivity(this.row, 0);
     }, err => {
-      console.log(err);
+      this.tokenService.checkSession(err);
     });
   }
 
@@ -50,7 +52,7 @@ export class AudittrailComponent implements OnInit {
         }
       });
     }, err => {
-      console.log(err);
+      this.tokenService.checkSession(err);
     });
   }
 

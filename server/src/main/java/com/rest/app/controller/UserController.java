@@ -58,5 +58,10 @@ public class UserController {
 	public ResponseEntity<Map<String, Object>> signOut(@PathVariable String user) {
 		return userService.signOut(user);
 	}
+	
+	@PostMapping("/changepassword")
+	public ResponseEntity<Map<String, Object>> changePassword(@RequestBody Useraccount user) {
+		return userService.changePassword(user);
+	}
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { BackendService } from 'src/app/service/backend.service';
+import { Themeservice } from 'src/app/service/theme.service';
 import { TokenService } from 'src/app/service/token.service';
 
 @Component({
@@ -17,11 +18,18 @@ export class LoginComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private router: Router,
     private tokenService: TokenService,
+    private themeService: Themeservice,
   ) { }
 
   ngOnInit(): void {
     this.user = {};
     this.onsign();
+    this.mode = this.themeService.getCurrentmode();
+    if (this.mode == 'dark') {
+      this.themeicon = 'pi pi-sun';
+    } else {
+      this.themeicon = 'pi pi-moon';
+    }
     this.credentials = {};
   }
 
@@ -32,6 +40,17 @@ export class LoginComponent implements OnInit {
   confpassword: any;
   forgpass: boolean;
   resetpass: boolean;
+  themeicon: string;
+  mode: string;
+
+  switchTheme() {
+    this.mode = this.themeService.switch();
+    if (this.mode == 'dark') {
+      this.themeicon = 'pi pi-sun';
+    } else {
+      this.themeicon = 'pi pi-moon';
+    }
+  }
 
 
   onreg() {

@@ -1,5 +1,5 @@
 .navbar {
-    background-color: whitesmoke;
+    background-color: white;
     height: 10vh;
     padding-top: 12px;
 }
@@ -30,7 +30,7 @@
     border-style: solid;
     border-width: 1px;
     border-color: rgb(226, 226, 226);
-    background-color: whitesmoke;
+    /*background-color: whitesmoke;*/
     padding-left: 10%;
     padding-right: 10%;
 }
@@ -53,7 +53,7 @@ label {
     height: 200px;
     width: 200px;
     margin: auto;
-    background-image: url("/assets/LOGO.png");
+    background-image: url("/assets/LOGO2.png");
     background-size: contain;
 }
 
@@ -61,4 +61,10 @@ label {
     font-weight: bolder;
     padding-top: 0.5em;
     padding-left: 1em;
+}
+
+@media screen and (max-width: 800px) {
+    label.system-name {
+        display: none;
+    }
 }

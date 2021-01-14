@@ -1,7 +1,9 @@
+import { Token } from '@angular/compiler/src/ml_parser/lexer';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { BackendService } from 'src/app/service/backend.service';
+import { TokenService } from 'src/app/service/token.service';
 
 @Component({
   selector: 'app-useraccount',
@@ -14,7 +16,8 @@ export class UseraccountComponent implements OnInit {
     private service: BackendService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private router: Router
+    private router: Router,
+    private tokenService: TokenService
   ) { }
 
   users: any[];
@@ -40,7 +43,7 @@ export class UseraccountComponent implements OnInit {
     this.service.getusers().subscribe(res => {
       this.users = res;
     }, err => {
-      console.log(err);
+      this.tokenService.checkSession(err);
     });
   }
 
@@ -65,6 +68,7 @@ export class UseraccountComponent implements OnInit {
           }
         }, err => {
           this.messageService.add({ key: 'bc', severity: 'error', summary: 'Failed', detail: err.message });
+          this.tokenService.checkSession(err);
         });
       }
     });
@@ -93,6 +97,7 @@ export class UseraccountComponent implements OnInit {
           }
         }, err => {
           this.messageService.add({ key: 'bc', severity: 'error', summary: 'Failed', detail: err.message });
+          this.tokenService.checkSession(err);
         });
       }
     });
@@ -110,6 +115,7 @@ export class UseraccountComponent implements OnInit {
           }
         }, err => {
           this.messageService.add({ key: 'bc', severity: 'error', summary: 'Failed', detail: err.message });
+          this.tokenService.checkSession(err);
         });
       }
     });

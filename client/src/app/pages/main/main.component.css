@@ -3,12 +3,12 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: white;
+    background: rgba(255, 255, 255, 0);
 }
 
 li {
     float: left;
-    background-color: white;
+    background: rgba(255, 255, 255, 0);
     padding-bottom: 1px;
     transition: 0.3s;
 }
@@ -18,12 +18,30 @@ li:hover {
     background: #883cae;
 }
 
+li.icon-list:hover {
+    background: rgba(255, 255, 255, 0);
+}
+
 li button {
     margin-top: 1em;
 }
 
+li.icon-list {
+    margin-left: 10px;
+    display: none;
+}
+
+@media screen and (max-width: 800px) {
+    li.icon-list {
+        display: block;
+    }
+    li.li-list {
+        display: none;
+    }
+}
+
 li.btn:hover {
-    background-color: white;
+    background: rgba(255, 255, 255, 0);
 }
 
 .spacer {
@@ -41,7 +59,7 @@ li a {
     text-align: center;
     padding: 21px 20px;
     text-decoration: none;
-    background-color: white;
+    background: rgba(255, 255, 255, 0);
     cursor: pointer;
 }
 
@@ -67,7 +85,7 @@ li a.a-spacer {
 }
 
 li a:hover:not(.active) {
-    background-color: white;
+    background: rgba(255, 255, 255, 0);
 }
 
 .active {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { Themeservice } from 'src/app/service/theme.service';
 
 @Component({
   selector: 'app-settings',
@@ -8,11 +9,14 @@ import { MenuItem } from 'primeng/api';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private themeService: Themeservice
+  ) { }
 
   items: MenuItem[];
 
   ngOnInit(): void {
+    this.themeService.getCurrentmode();
     this.items = [{
       label: 'Options',
       items: [{

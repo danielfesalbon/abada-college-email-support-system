@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { ConfirmationService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
 
-  constructor() { }
+  constructor(
+    private confirmationService: ConfirmationService,
+    private router: Router
+  ) { }
 
 
   public storeToken(token: string) {
@@ -33,4 +38,25 @@ export class TokenService {
   destroy(): void {
     localStorage.clear();
   }
+
+  checkSession(err) {
+    if (err.error.status == 401) {
+      this.confirmationService.confirm({
+        icon: 'pi pi-exclamation-triangle',
+        acceptLabel: 'Okay',
+        key: 'sessiondlg',
+        message: 'Session Unavailable. Please try again',
+        accept: () => {
+          this.destroy();
+          this.router.navigate(['/login']);
+        },
+        reject: () => {
+          this.destroy();
+          this.router.navigate(['/login']);
+        }
+      });
+
+    }
+  }
+
 }

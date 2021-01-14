@@ -26,4 +26,6 @@ public interface UserService {
 
 	ResponseEntity<Map<String, Object>> registerUser(Useraccount user);
 
+	ResponseEntity<Map<String, Object>> changePassword(Useraccount user);
+
 }

@@ -156,4 +156,26 @@ public class UserServiceImpl implements UserService {
 		}
 		return ResponseEntity.ok().body(response);
 	}
+
+	@Override
+	public ResponseEntity<Map<String, Object>> changePassword(Useraccount user) {
+		// TODO Auto-generated method stub
+		Map<String, Object> response = new HashMap<String, Object>();
+		try {
+			response.put("flag", "failed");
+			response.put("event", "Change password");
+			Useraccount u = UserRepository.findByUsername(user.getUsername());
+			u.setPassword(passwordEncoder.encode(user.getPassword()));
+			UserRepository.save(u);
+			response.put("flag", "success");
+			event.LOG_EVENT(u.getUsername(), response);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.put("flag", "failed");
+			return ResponseEntity.badRequest().body(response);
+			// TODO: handle exception
+		}
+		return ResponseEntity.ok().body(response);
+	}
 }

@@ -69,6 +69,7 @@ export class SendpageComponent implements OnInit {
     }, err => {
       this.ngOnInit();
       this.messageService.add({ key: 'bc', severity: 'error', summary: 'Failed', detail: err.message });
+      this.tokenService.checkSession(err);
     });
   }
 

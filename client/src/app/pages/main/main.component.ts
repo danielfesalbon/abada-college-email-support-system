@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { BackendService } from 'src/app/service/backend.service';
+import { Themeservice } from 'src/app/service/theme.service';
 import { TokenService } from 'src/app/service/token.service';
 
 @Component({
@@ -17,14 +18,24 @@ export class MainComponent implements OnInit {
     private messageService: MessageService,
     private router: Router,
     private tokenService: TokenService,
-
+    private themeService: Themeservice
   ) { }
 
   usermodal: boolean;
   user: any;
   position: string;
+  themeicon: string;
+  mode: string;
+  confpassword: string;
 
   ngOnInit(): void {
+    this.confpassword = '';
+    this.mode = this.themeService.getCurrentmode();
+    if (this.mode == 'dark') {
+      this.themeicon = 'pi pi-sun';
+    } else {
+      this.themeicon = 'pi pi-moon';
+    }
     this.position = "bottom";
     this.usermodal = false;
     this.user = {};
@@ -34,9 +45,18 @@ export class MainComponent implements OnInit {
 
   showprofile() {
     this.usermodal = true;
+    this.confpassword = '';
+    this.user.password = '';
   }
 
-
+  switchTheme() {
+    this.mode = this.themeService.switch();
+    if (this.mode == 'dark') {
+      this.themeicon = 'pi pi-sun';
+    } else {
+      this.themeicon = 'pi pi-moon';
+    }
+  }
 
   onlogout() {
     this.confirmationService.confirm({
@@ -55,7 +75,28 @@ export class MainComponent implements OnInit {
     this.service.getusers().subscribe(res => {
       let list: any[] = res;
       this.user = list.find(i => { return i.username == this.tokenService.getUser(); });
+    }, err => {
+      this.tokenService.checkSession(err);
     })
+  }
+
+  changepassword() {
+    this.confirmationService.confirm({
+      message: 'Update password',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.service.changepassword(this.user).subscribe(res => {
+          if (res.flag == "success") {
+            this.messageService.add({ key: 'bc', severity: 'success', summary: 'Success', detail: res.event });
+            this.ngOnInit();
+          }
+        }, err => {
+          this.messageService.add({ key: 'bc', severity: 'error', summary: 'Failed', detail: err.message });
+          this.tokenService.checkSession(err);
+        })
+      }
+    });
   }
 
 
@@ -66,7 +107,7 @@ export class MainComponent implements OnInit {
         this.router.navigate(['/login']);
       }
     }, err => {
-      console.log(err);
+      this.tokenService.checkSession(err);
     });
   }
 
