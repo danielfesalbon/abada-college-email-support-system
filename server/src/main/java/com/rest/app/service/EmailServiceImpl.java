@@ -42,22 +42,16 @@ public class EmailServiceImpl implements EmailService {
 		try {
 			final String token = request.getHeader("Authorization").substring(7);
 			res.put("event", "Send email to " + email.size() + " recipients");
-			// SimpleMailMessage mailmessage = new SimpleMailMessage();
 			MimeMessage mimemessage = javaMailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(mimemessage, "UTF-8");
 			helper.setText("<html><body>" + message + "</body></html>", true);
 			helper.setSubject(subject);
-			// mailmessage.setSubject(subject);
-			// mailmessage.setText(message);
-			// String[] emails = new String[] {};
-			for (String e : email) {
-				helper.setTo(e);
-				javaMailSender.send(mimemessage);
+			String[] emails = new String[email.size()];
+			for (int i = 0; i < email.size(); i++) {
+				emails[i] = email.get(i);
 			}
-			// mailmessage.setTo(emails);
-			// javaMailSender.send(mailmessage);
-			// helper.setTo(emails);
-			// javaMailSender.send(mimemessage);
+			helper.setTo(emails);
+			javaMailSender.send(mimemessage);
 			res.put("flag", "success");
 			event.LOG_EVENT(jwt.getUsernameFromToken(token), res);
 
