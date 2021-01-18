@@ -79,6 +79,10 @@ public class EmailServiceImpl implements EmailService {
 			helper.setTo(emails);
 			javaMailSender.send(mimemessage);
 			res.put("flag", "success");
+			for (Hashfile f : files) {
+				File file = new File(filepath + env.getProperty("attachments") + f.getFilename());
+				file.delete();
+			}
 			event.LOG_EVENT(jwt.getUsernameFromToken(token), res);
 
 		} catch (Exception e) {
