@@ -25,8 +25,11 @@ export class SendpageComponent implements OnInit {
   subject: string;
   message: string;
   blocked: boolean;
+  attachments: any[] = [];
+  files: any[];
 
   ngOnInit(): void {
+    this.files = [];
     this.blocked = false;
     this.list = [];
     this.subject = '';
@@ -59,6 +62,7 @@ export class SendpageComponent implements OnInit {
     req.email = this.list.map(i => i.email);
     req.message = this.message;
     req.subject = this.subject;
+    req.files = this.files;
     this.blocked = true;
     this.service.sendemail(req).subscribe(res => {
       if (res.flag == "success") {
@@ -83,4 +87,32 @@ export class SendpageComponent implements OnInit {
     });
   }
 
+
+  onUpload(event) {
+    for (let file of event.files) {
+      this.attachments.push(file);
+      let f: File = file;
+      this.pushFile(f);
+    }
+  }
+
+
+  async pushFile(f: File) {
+    const file = f;
+    const result = await toBase64(file).catch(e => Error(e));
+    this.files.push({ base64: result, filename: file.name });
+    console.log(result);
+    if (result instanceof Error) {
+      this.messageService.add({ key: 'bc', severity: 'error', summary: 'Failed', detail: result.message });
+      return;
+    }
+  }
+
 }
+
+const toBase64 = file => new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = () => resolve(reader.result);
+  reader.onerror = error => reject(error);
+});

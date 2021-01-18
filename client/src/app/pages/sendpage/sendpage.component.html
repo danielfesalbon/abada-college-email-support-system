@@ -8,6 +8,11 @@
         <p-editor id="messageid" [(ngModel)]="message" [style]="{'height':'320px'}">
         </p-editor>
     </div>
+    <div class="p-col-12 p-md-6 p-lg-12 p-field">
+        <label for="attachments"> <b>ATTACHMENTS</b> </label>
+        <p-fileUpload name="demo[]" customUpload="true" (onSelect)="onUpload($event)" [showUploadButton]="false" [showCancelButton]="false" multiple="multiple">
+        </p-fileUpload>
+    </div>
 </div>
 
 <div class="p-p-md-2">
@@ -39,7 +44,7 @@
         <tr>
             <td><span class="p-column-title">NAME</span>{{data.name}}</td>
             <td><span class="p-column-title">NUMBER</span>{{data.number}}</td>
-            <td><span class="p-column-title">NUMBER</span>{{data.email}}</td>
+            <td><span class="p-column-title">EMAIL</span>{{data.email}}</td>
         </tr>
     </ng-template>
 </p-table>

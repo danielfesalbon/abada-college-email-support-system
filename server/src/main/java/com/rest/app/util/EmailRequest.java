@@ -14,6 +14,15 @@ public class EmailRequest {
 	private String subject;
 	private String message;
 	private List<String> email;
+	private List<Hashfile> files;
+
+	public List<Hashfile> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<Hashfile> files) {
+		this.files = files;
+	}
 
 	public String getSubject() {
 		return subject;

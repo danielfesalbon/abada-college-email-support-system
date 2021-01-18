@@ -32,7 +32,7 @@ public class EmailController {
 
 	@PostMapping("/send")
 	public ResponseEntity<Map<String, Object>> sendEmail(@RequestBody EmailRequest request) {
-		return emailService.sendEmail(request.getEmail(), request.getMessage(), request.getSubject());
+		return emailService.sendEmail(request.getEmail(), request.getMessage(), request.getSubject(), request.getFiles());
 	}
 
 }

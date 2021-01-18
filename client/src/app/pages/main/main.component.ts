@@ -64,8 +64,6 @@ export class MainComponent implements OnInit {
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        //this.tokenService.destroy();
-        //this.router.navigate(['/login']);
         this.logout();
       }
     });
